@@ -1,0 +1,5 @@
+select location, AVG(popularity) as average_popularity
+from facebook_employees as fe
+left join facebook_hack_survey as fh on fe.id = fh.employee_id
+GROUP BY location
+ORDER BY AVG(popularity) DESC
