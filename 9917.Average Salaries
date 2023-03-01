@@ -1,0 +1,8 @@
+# THANKS HarryPits117, and user in SS for over partition by code
+
+select department
+      ,first_name
+      ,last_name
+      ,salary
+      ,AVG(salary) over (partition by department) as average_department
+from employee
