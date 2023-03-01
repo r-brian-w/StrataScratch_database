@@ -1,0 +1,13 @@
+# THANKS M&M FOR DISTINCT CODE AND FP IN POST_ID AND POSTER
+
+select distinct fp.post_id
+       ,fp.poster
+       ,post_text
+       ,post_keywords
+       ,post_date
+from facebook_reactions as fr
+left join facebook_posts as fp on fr.post_id = fp.post_id
+where reaction = 'heart'
+
+
+# IF FP IN POST_ID AND POSTER CHANGED TO FR, IT WONT WORK
