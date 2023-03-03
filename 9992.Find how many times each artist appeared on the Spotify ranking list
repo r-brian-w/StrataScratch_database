@@ -1,0 +1,5 @@
+select artist
+       , count(artist) as appeared
+from spotify_worldwide_daily_song_ranking
+GROUP BY artist
+ORDER BY appeared DESC
