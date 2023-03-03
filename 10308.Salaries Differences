@@ -1,0 +1,37 @@
+# MY SOLUTION
+# SO MUCH WORK
+select distinct
+           (select max(salary)
+           from db_employee as dbe
+           INNER JOIN db_dept as dbd on dbe.department_id = dbd.id
+           GROUP BY department
+           having department = 'marketing')
+           -
+           (select max(salary)
+           from db_employee as dbe
+           INNER JOIN db_dept as dbd on dbe.department_id = dbd.id
+           GROUP BY department
+           having department = 'engineering')
+         as difference
+from db_employee
+
+# OTHER SOLUTION
+# MORE EFFICIENT
+# THANKS jackhyena for the solution
+select abs(max(a.salary) - max(b.salary)) as sal_diff
+from db_employee a, db_employee b
+where a.department_id = 4 and b.department_id = 1;
+
+# THIS ONE SAME WITH MY SOLUTION BUT BETTER
+# THANKS
+SELECT
+  ABS((SELECT max(salary)
+   FROM db_employee emp
+   JOIN db_dept dept ON emp.department_id = dept.id
+   WHERE department = 'engineering') -
+  (SELECT max(salary)
+   FROM db_employee emp
+   JOIN db_dept dept ON emp.department_id = dept.id
+   WHERE department = 'marketing')) AS salary_diffe;
+   
+# FOR MY SOLUTION NEED TO DELETE FROM DB_EMPLOYEE FROM MAIN SELECT AND CHANGE DISTINCT TO ABS
