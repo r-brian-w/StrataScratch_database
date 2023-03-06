@@ -1,0 +1,22 @@
+# NOT WORKING
+# WRONG IN WHERE CODE
+# CHANGE EQUAL (=) TO IN
+select worker_title
+from worker as w
+join title as t on w.worker_id = t.worker_ref_id
+join title as t on w.worker_id = t.worker_ref_id
+order by salary desc 
+where salary = (select max(salary)
+                from worker as w
+                join title as t on w.worker_id = t.worker_ref_id
+                group by worker_title
+                order by salary desc
+                limit 1
+                )
+
+# THANKS MartinEyezing157 FOR SUBQUERY CODE
+# WORKING CODE USING SUBQUERY
+select t.worker_title
+from worker w join title t on w.worker_id = t.worker_ref_id 
+where salary in (select max(salary)
+                    from worker);
