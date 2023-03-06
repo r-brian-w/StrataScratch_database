@@ -1,0 +1,12 @@
+# THANKS Armonia FOR SUBQUERY IN JOIN CODE
+# WHY NEED SUBQUERY IN JOIN CODE, BECAUSE IN TABLE sf_bonus IT NOT SUM BONUS, 
+# SO THERE MULTIPLE SAME ID WITH DIFFERENT BONUS, THEN NEED TO MAKE IT SINGLE ID WITH SUM BONUS
+select employee_title
+        ,sex 
+        ,AVG(salary + bonus) as average_comp
+from sf_employee as sfe
+join (select worker_ref_id, sum(bonus) as bonus
+      from sf_bonus
+      group by worker_ref_id)
+    as sfb on sfe.id = sfb.worker_ref_id
+group by employee_title
