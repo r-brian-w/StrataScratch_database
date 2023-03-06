@@ -1,0 +1,9 @@
+# THANKS StrataScratch FOR THE HINT
+select nationality
+        ,count(distinct unit_id) as num_apartment
+from airbnb_hosts as ah
+JOIN airbnb_units as au on ah.host_id = au.host_id
+where age < 30 
+and unit_type = 'Apartment'
+group by nationality
+order by num_apartment desc
