@@ -1,0 +1,5 @@
+select year(inspection_date) as year
+        ,count(business_name) as num_violation
+from sf_restaurant_health_violations
+where business_name = 'Roxanne Cafe'
+group by inspection_date
