@@ -1,0 +1,5 @@
+# THANKS SaraBellum126 FOR /COUNT(*) CODE
+select type
+        , sum(processed)/count(*) as rate_proc
+from facebook_complaints
+group by type
