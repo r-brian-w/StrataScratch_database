@@ -1,0 +1,14 @@
+select date
+        , sum(consumption) as total_con
+from (  select *
+        from fb_eu_energy as eu
+        union all
+        select *
+        from fb_asia_energy as asia
+        union all
+        select *
+        from fb_na_energy as na
+        ) as t
+group by date
+order by total_con desc
+limit 2
