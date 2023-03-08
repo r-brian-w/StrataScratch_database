@@ -1,0 +1,38 @@
+with pay as (select msu.user_id as pay_user
+                    , sum(downloads) as paid_dl
+            from ms_user_dimension as msu
+            join ms_acc_dimension as msa on msu.acc_id = msa.acc_id
+            join ms_download_facts as msd on msd.user_id = msu.user_id
+            where paying_customer = "yes"
+            group by msu.user_id)
+, free as (select msu.user_id as free_user
+                    , sum(downloads) as free_dl
+            from ms_user_dimension as msu
+            join ms_acc_dimension as msa on msu.acc_id = msa.acc_id
+            join ms_download_facts as msd on msd.user_id = msu.user_id
+            where paying_customer = "no"
+            group by msu.user_id)
+select date
+        , sum(free_dl) as non_paying
+        , sum(paid_dl) as paying
+from ms_download_facts as msd
+left join pay as p on msd.user_id = pay_user
+left join free as f on msd.user_id = free_user
+group by date
+having non_paying > paying
+order by date
+
+# MORE SIMPLE
+# THANKS PattyO'Furniture147
+
+SELECT date,
+       SUM(IF(paying_customer = 'no', downloads, 0)) AS non_payin,
+       SUM(IF(paying_customer = 'yes', downloads, 0)) AS paying
+  FROM ms_download_facts
+  JOIN ms_user_dimension AS mud
+       USING(user_id)
+  JOIN ms_acc_dimension AS mad
+       USING(acc_id)
+ GROUP BY date
+HAVING non_payin > paying
+ ORDER BY date ASC
