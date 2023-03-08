@@ -1,0 +1,23 @@
+# CODE THAT I WROTE NOT WORKING
+# THANKS GingerSnaps166 FOR CODE IN LINE ON
+# MY CODE DIFFERENT IN ON M.ID = E.MANAGER_ID, FIRST IT WAS E.ID = M.ID
+# WHY JOIN ON M.ID = E.MANAGER_ID, BECAUSE WE WANT TO ADD EMPLOYEE WITH TITLE MANAGER OR HAVE MANAGER ID, 
+# ADDING WHO HAVE ID MANAGER SAME WITH ID EMPLOYEE TO TABLE COLUMN (NOT ROW), THEN COMPARE EMPLOYEE SALARY AND MANAGER SALARY
+
+select e.first_name
+        ,e.salary
+from employee as e
+join (select *
+      from employee
+      where employee_title = 'Manager'
+      ) as m
+on m.id = e.manager_id
+where e.salary > m.salary
+
+# THIS CODE IS FROM GingerSnaps166
+# MORE SIMPLE
+select *
+    from employee e
+    join employee m
+    on m.id=e.manager_id
+    where e.salary > m.salary
