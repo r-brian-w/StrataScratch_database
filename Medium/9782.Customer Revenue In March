@@ -1,0 +1,11 @@
+# THANKS StrataScratch FOR THE HINT
+select cust_id
+        , sum(total_order_cost) as revenue
+from orders
+where order_date like "2019-03-%"
+and cust_id not in (select order_date 
+                    from orders
+                    where order_date like "2019-02-%"
+                    and order_date between "2019-04-01" and "2019-12-01")
+group by cust_id
+order by revenue desc
