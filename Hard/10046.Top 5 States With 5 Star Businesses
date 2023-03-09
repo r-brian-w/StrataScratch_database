@@ -1,0 +1,11 @@
+select state
+        , num_buss
+from (select state
+            , count(business_id) as num_buss
+            , dense_rank() over(order by count(business_id) desc) as ranking
+       from yelp_business
+       where stars = 5
+       group by state
+       order by ranking asc, state asc) as t
+where ranking < 5
+order by ranking asc
